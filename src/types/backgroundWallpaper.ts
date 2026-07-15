@@ -3,13 +3,13 @@ export type BackgroundWallpaperConfig = {
 	switchable?: boolean; // 是否允许用户通过导航栏切换壁纸模式，默认true
 	playerEnable?: boolean; // 是否启用背景视频播放，默认false
 	src:
-		| string
-		| string[]
-		| {
-				desktop?: string | string[];
-				mobile?: string | string[];
-				playerUrl?: string | string[]; // 背景视频播放地址，支持单个视频路径或数组（多视频列表循环）
-		  }; // 支持单个图片、图片数组或分别设置桌面端和移动端图片
+	| string
+	| string[]
+	| {
+		desktop?: string | string[];
+		mobile?: string | string[];
+		playerUrl?: string | string[]; // 背景视频播放地址，支持单个视频路径或数组（多视频列表循环）
+	}; // 支持单个图片、图片数组或分别设置桌面端和移动端图片
 	// 横幅壁纸和全屏壁纸共享配置
 	common?: {
 		dimOpacity?: number; // 横幅文字遮罩暗度，0-1之间，值越大越暗，默认0.15
@@ -35,21 +35,21 @@ export type BackgroundWallpaperConfig = {
 		};
 		waves?: {
 			enable:
-				| boolean
-				| {
-						desktop: boolean; // 桌面端是否启用水波纹动画效果
-						mobile: boolean; // 移动端是否启用水波纹动画效果
-				  }; // 是否启用水波纹动画效果，支持布尔值或分别设置桌面端和移动端
+			| boolean
+			| {
+				desktop: boolean; // 桌面端是否启用水波纹动画效果
+				mobile: boolean; // 移动端是否启用水波纹动画效果
+			}; // 是否启用水波纹动画效果，支持布尔值或分别设置桌面端和移动端
 			switchable?: boolean; // 是否允许用户通过控制面板切换水波纹动画
 		};
 		// 渐变过渡效果配置，当水波纹关闭时自动启用，提供壁纸底部到背景色的平滑过渡
 		gradient?: {
 			enable:
-				| boolean
-				| {
-						desktop: boolean; // 桌面端是否启用渐变过渡
-						mobile: boolean; // 移动端是否启用渐变过渡
-				  }; // 是否启用渐变过渡，支持布尔值或分别设置桌面端和移动端，默认true（水波纹关闭时自动生效）
+			| boolean
+			| {
+				desktop: boolean; // 桌面端是否启用渐变过渡
+				mobile: boolean; // 移动端是否启用渐变过渡
+			}; // 是否启用渐变过渡，支持布尔值或分别设置桌面端和移动端，默认true（水波纹关闭时自动生效）
 			height?: string; // 渐变高度，默认 "30vh"
 			switchable?: boolean; // 是否允许用户通过控制面板切换渐变过渡
 		};
@@ -65,35 +65,35 @@ export type BackgroundWallpaperConfig = {
 	// Banner模式特有配置
 	banner?: {
 		position?:
-			| "top"
-			| "center"
-			| "bottom"
-			| "top left"
-			| "top center"
-			| "top right"
-			| "center left"
-			| "center center"
-			| "center right"
-			| "bottom left"
-			| "bottom center"
-			| "bottom right"
-			| "left top"
-			| "left center"
-			| "left bottom"
-			| "right top"
-			| "right center"
-			| "right bottom"
-			| string; // 壁纸位置，支持CSS object-position的所有值，包括百分比和像素值
+		| "top"
+		| "center"
+		| "bottom"
+		| "top left"
+		| "top center"
+		| "top right"
+		| "center left"
+		| "center center"
+		| "center right"
+		| "bottom left"
+		| "bottom center"
+		| "bottom right"
+		| "left top"
+		| "left center"
+		| "left bottom"
+		| "right top"
+		| "right center"
+		| "right bottom"
+		| string; // 壁纸位置，支持CSS object-position的所有值，包括百分比和像素值
 	};
 	// 全屏透明覆盖模式特有配置
 	overlay?: {
 		switchable?:
-			| boolean
-			| {
-					opacity?: boolean; // 是否允许用户在控制面板调整壁纸透明度
-					blur?: boolean; // 是否允许用户在控制面板调整背景模糊度
-					cardOpacity?: boolean; // 是否允许用户在控制面板调整卡片透明度
-			  }; // 透明模式参数是否可在控制面板调整，支持统一开关或分项开关
+		| boolean
+		| {
+			opacity?: boolean; // 是否允许用户在控制面板调整壁纸透明度
+			blur?: boolean; // 是否允许用户在控制面板调整背景模糊度
+			cardOpacity?: boolean; // 是否允许用户在控制面板调整卡片透明度
+		}; // 透明模式参数是否可在控制面板调整，支持统一开关或分项开关
 		zIndex?: number; // 层级，确保壁纸在合适的层级显示
 		opacity?: number; // 壁纸透明度，0-1之间
 		blur?: number; // 背景模糊程度，单位px
