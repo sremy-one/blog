@@ -46,6 +46,7 @@ export const backgroundWallpaper: BackgroundWallpaperConfig = {
 			"assets/images/DesktopWallpaper/c1.jpg",
 			"assets/images/DesktopWallpaper/c2.jpg",
 			"assets/images/DesktopWallpaper/c3.jpg",
+			"assets/images/DesktopWallpaper/c4.jpg",
 		],
 		// 移动背景图片（支持单张或多张随机）
 		// mobile: "assets/images/MobileWallpaper/m1.avif",
@@ -155,7 +156,7 @@ export const backgroundWallpaper: BackgroundWallpaperConfig = {
 		// 图片位置
 		// 支持所有CSS object-position值，如: 'top', 'center', 'bottom', 'left top', 'right bottom', '25% 75%', '10px 20px'..
 		// 如果不知道怎么配置百分百之类的配置，推荐直接使用：'center'居中，'top'顶部居中，'bottom' 底部居中，'left'左侧居中，'right'右侧居中
-		position: "90% center",
+		position: "70% center",
 	},
 	// 全屏透明覆盖模式特有配置
 	overlay: {
