@@ -1,7 +1,7 @@
 {
   "name": "firefly",
   "type": "module",
-  "version": "6.13.9",
+  "version": "6.14.2",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -10,6 +10,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "type-check": "tsc --noEmit --isolatedDeclarations",
+    "new-dynamic": "tsx scripts/new-dynamic.js",
+    "new-d": "tsx scripts/new-dynamic.js",
     "new-post": "node scripts/new-post.js",
     "format": "biome format --write ./src",
     "lint": "biome check --write ./src",
