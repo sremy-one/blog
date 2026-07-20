@@ -8,7 +8,7 @@ export const backgroundWallpaper: BackgroundWallpaperConfig = {
 	// 推荐只选择自己喜欢的模式并关闭切换功能
 	switchable: true,
 	// 是否启用背景视频播放，配置后将在导航栏显示视频播放按钮
-	playerEnable: true,
+	playerEnable: false,
 	/**
 	 * 背景图片配置
 	 * 图片路径支持三种格式：
@@ -47,16 +47,30 @@ export const backgroundWallpaper: BackgroundWallpaperConfig = {
 			"assets/images/DesktopWallpaper/c2.jpg",
 			"assets/images/DesktopWallpaper/c3.jpg",
 			"assets/images/DesktopWallpaper/c4.jpg",
+			"assets/images/DesktopWallpaper/c5.jpg",
+			"assets/images/DesktopWallpaper/c6.jpg",
+			"assets/images/DesktopWallpaper/c7.jpg",
 		],
 		// 移动背景图片（支持单张或多张随机）
 		// mobile: "assets/images/MobileWallpaper/m1.avif",
 		mobile: [
-			"assets/images/MobileWallpaper/m1.avif",
-			"assets/images/MobileWallpaper/m2.avif",
-			"assets/images/MobileWallpaper/m3.avif",
-			"assets/images/MobileWallpaper/m4.avif",
-			"assets/images/MobileWallpaper/m5.avif",
-			"assets/images/MobileWallpaper/m6.avif",
+			"assets/images/MobileWallpaper/EMT1.jpg",
+			"assets/images/MobileWallpaper/EMT2.jpg",
+			"assets/images/MobileWallpaper/EMT3.jpg",
+			"assets/images/MobileWallpaper/EMT4.jpg",
+			"assets/images/MobileWallpaper/EMT5.jpg",
+			"assets/images/MobileWallpaper/EMT6.jpg",
+			"assets/images/MobileWallpaper/EMT7.jpg",
+			"assets/images/MobileWallpaper/EMT8.jpg",
+			"assets/images/MobileWallpaper/EMT9.jpg",
+			"assets/images/MobileWallpaper/EMT10.jpg",
+			"assets/images/MobileWallpaper/EMT11.jpg",
+			"assets/images/MobileWallpaper/EMT12.jpg",
+			"assets/images/MobileWallpaper/EMT13.jpg",
+			"assets/images/MobileWallpaper/EMT14.jpg",
+			"assets/images/MobileWallpaper/EMT15.jpg",
+			"assets/images/MobileWallpaper/EMT16.jpg",
+			"assets/images/MobileWallpaper/EMT17.jpg",
 		],
 		// 背景视频播放地址
 		// 支持单个视频路径（字符串）或多个视频循环（数组）
@@ -142,11 +156,11 @@ export const backgroundWallpaper: BackgroundWallpaperConfig = {
 		// 壁纸轮播配置，横幅壁纸和全屏壁纸共享，仅在配置多张图片时生效
 		carousel: {
 			// 是否启用壁纸轮播；关闭时保持每次刷新随机显示一张
-			enable: false,
+			enable: true,
 			// 轮播切换间隔（毫秒）
 			interval: 5000,
 			// 过渡效果: 'fade' 渐变 | 'zoom' 缩放 | 'slide' 滑动 | 'kenburns' 旋转木马
-			transitionEffect: "zoom",
+			transitionEffect: "fade",
 			// 是否允许用户通过控制面板切换壁纸轮播
 			switchable: true,
 		},

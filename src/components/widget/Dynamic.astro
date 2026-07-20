@@ -31,11 +31,22 @@ const dynamics = siteConfig.pages.dynamic
 			.slice(0, limit)
 			.map((entry) => {
 				const image = (entry.body || "").match(imagePattern);
+				let imageSrc = null;
+				if (image && image[2]) {
+					let src = image[2];
+					if (src.startsWith("./")) {
+						src = "/dynamic" + src.slice(1);
+					} else if (src.startsWith("/")) {
+					} else if (!src.startsWith("http")) {
+						src = "/dynamic/images/" + src;
+					}
+					imageSrc = { alt: image[1], src };
+				}
 				return {
 					id: dynamicAnchor(entry.id),
 					text: dynamicPlainText(entry),
 					published: entry.data.published,
-					image: image ? { alt: image[1], src: image[2] } : null,
+					image: imageSrc,
 				};
 			})
 	: [];

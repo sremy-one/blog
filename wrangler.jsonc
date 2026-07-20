@@ -1,7 +1,9 @@
 {
-	"name": "firefly",
+	"name": "Yore",
 	"compatibility_date": "2025-01-01",
-	"compatibility_flags": ["nodejs_compat"],
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
 	"assets": {
 		"directory": "./dist"
 	}

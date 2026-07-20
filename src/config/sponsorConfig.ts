@@ -12,7 +12,7 @@ export const sponsorConfig: SponsorConfig = {
 		"您的打赏将用于服务器维护、内容创作和功能开发，帮助我持续提供优质内容。",
 
 	// 是否显示打赏者列表
-	showSponsorsList: true,
+	showSponsorsList: false,
 
 	// 是否显示评论区，需要先在commentConfig.ts启用评论系统
 	showComment: true,
@@ -39,22 +39,7 @@ export const sponsorConfig: SponsorConfig = {
 			description: "使用 微信 扫码打赏",
 			enabled: true,
 		},
-		{
-			name: "ko-fi",
-			icon: "simple-icons:kofi",
-			qrCode: "",
-			link: "https://ko-fi.com/cuteleaf",
-			description: "Buy a Coffee for Firefly",
-			enabled: true,
-		},
-		{
-			name: "爱发电",
-			icon: "simple-icons:afdian",
-			qrCode: "",
-			link: "https://ifdian.net/a/cuteleaf",
-			description: "通过 爱发电 进行打赏",
-			enabled: true,
-		},
+		
 	],
 
 	// 打赏者列表（可选）

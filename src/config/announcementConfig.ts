@@ -5,7 +5,7 @@ export const announcementConfig: AnnouncementConfig = {
 	title: "公告",
 
 	// 公告内容
-	content: "欢迎来到我的博客！这是一则示例公告。",
+	content: "欢迎来到Yore的博客！本站基于原创作者夏叶的博客网站模版创作。",
 
 	// 是否允许用户关闭公告
 	closable: true,
