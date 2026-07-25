@@ -4,7 +4,7 @@ published: 2026-07-14
 description: 这篇文章记录实习第二周的工作内容，主要是修复科普资源上传模块的两个问题。
 tags: [实习,vue,bug修复]
 category: 实习
-image: ./images/EMT2.jpg
+image: http://119.29.228.89/img/EMT2.jpg
 slug: week2
 ---
 

@@ -4,7 +4,7 @@ published: 2026-07-07
 description: 这篇文章记录实习第一周的工作内容。
 tags: [实习,vue]
 category: 实习
-image: ./images/EMT1.jpg
+image: http://119.29.228.89/img/EMT1.jpg
 slug: week1
 ---
 领导安排的练手工作，根据页面原型图编写前端页面并对后端接口进行调用。
