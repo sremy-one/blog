@@ -4,7 +4,7 @@ import type { SakuraConfig } from "../types/effectsConfig";
 
 export const sakuraConfig: SakuraConfig = {
 	// 是否启用樱花特效
-	enable: true,
+	enable: false,
 
 	// 樱花数量
 	sakuraNum: 21,
