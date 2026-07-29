@@ -4,7 +4,7 @@ published: 2026-07-22
 description: 这篇文章记录实习的工作内容，主要是凭证查询模块的页面优化、凭证分组合并、查看与复制功能以及独立详情页路由的实现。
 tags: [实习,vue,Element Plus,路由,表格优化]
 category: 实习
-image: https://asyore.cn/img/EMT5.jpg
+image: http://119.29.228.89/img/EMT5.jpg
 slug: week4
 ---
 
