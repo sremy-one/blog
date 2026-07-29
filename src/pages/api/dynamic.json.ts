@@ -5,8 +5,26 @@ import {
 	dynamicSlug,
 	sortDynamics,
 } from "@/utils/dynamic-utils";
+import { url } from "@/utils/url-utils";
 
 const markdownImagePattern = /!\[([^\]]*)\]\((\S+?)(?:\s+["']([^"']*)["'])?\)/g;
+const absoluteUrlPattern = /^[a-z][a-z\d+.-]*:/i;
+
+function resolveImageSrc(src: string, entryId: string): string {
+	if (absoluteUrlPattern.test(src) || src.startsWith("//")) return src;
+	if (src.startsWith("/")) return url(src);
+
+	const entrySlug = dynamicSlug(entryId).replace(/\\/g, "/");
+	const lastSlashIndex = entrySlug.lastIndexOf("/");
+	const entryDirectory =
+		lastSlashIndex >= 0 ? entrySlug.slice(0, lastSlashIndex + 1) : "";
+	const resolved = new URL(
+		src,
+		`https://dynamic.local/dynamic/${entryDirectory}`,
+	);
+
+	return url(`${resolved.pathname}${resolved.search}${resolved.hash}`);
+}
 
 export async function GET(): Promise<Response> {
 	const processor = await createMarkdownProcessor();
@@ -17,7 +35,11 @@ export async function GET(): Promise<Response> {
 			const markdown = (entry.body || "").replace(
 				markdownImagePattern,
 				(_match, alt: string, src: string, title?: string) => {
-					images.push({ alt, src, ...(title ? { title } : {}) });
+					images.push({
+						alt,
+						src: resolveImageSrc(src, entry.id),
+						...(title ? { title } : {}),
+					});
 					return "";
 				},
 			);

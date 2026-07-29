@@ -1,7 +1,7 @@
 ---
-title: 实习第一周
+title: 实习笔记①
 published: 2026-07-07
-description: 这篇文章记录实习第一周的工作内容。
+description: 这篇文章记录实习的工作内容。
 tags: [实习,vue]
 category: 实习
 image: http://119.29.228.89/img/EMT1.jpg
