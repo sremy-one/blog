@@ -4,7 +4,7 @@ published: 2026-07-28
 description: 这篇文章记录实习的工作内容，主要围绕凭证查询、账簿管理、动态路由、用户单位权限和管理员默认账套状态等功能进行优化。
 tags: [实习,vue,Element Plus,动态路由,权限管理,账簿管理]
 category: 实习
-image: http://119.29.228.89/img/EMT6.jpg
+image: https://img.asyore.cn/img/EMT6.jpg
 slug: week5
 ---
 
