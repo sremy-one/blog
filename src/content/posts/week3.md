@@ -4,7 +4,7 @@ published: 2026-07-17
 description: 这篇文章记录实习的工作内容，主要是留言板处理模块的开发。
 tags: [实习,vue]
 category: 实习
-image: https://img.asyore.cn/images/EMT4.webp
+image: https://img.asyore.cn/fengmian/EMT3.webp
 slug: week3
 ---
 开发留言板处理模块，该模块位于 `src/views/message-board/handle` 目录下，包含留言列表展示、留言答复、留言查看、公开状态切换等功能。
