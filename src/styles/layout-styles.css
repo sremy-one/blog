@@ -474,12 +474,7 @@ html.is-page-transitioning .banner-home-text-overlay {
     transform: translateX(-100%);
     opacity: 0;
 }
-<<<<<<< HEAD
-
 /* Ken Burns 旋转木马效果 — 纯放大，配合 LQIP 过渡切换 */
-=======
-/* Ken Burns 旋转木马效果 - 交叉淡入淡出 */
->>>>>>> upstream/master
 @keyframes kenburns {
     from {
         transform: scale(1);

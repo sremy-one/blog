@@ -41,3 +41,8 @@ package/
 .codex*
 .claude
 .mimocode
+
+# Tencent Cloud EdgeOne
+.env
+.edgeone/*
+.tef_dist/*
