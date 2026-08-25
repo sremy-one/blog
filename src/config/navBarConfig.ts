@@ -96,7 +96,7 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 			},
 			{
 				name: "本站GitHub",
-				url: "https://github.com/CuteLeaf/Firefly",
+				url: "https://github.com/sremy-one/blog",
 				external: true,
 				icon: "fa7-brands:github",
 			},
