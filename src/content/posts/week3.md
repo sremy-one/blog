@@ -3,7 +3,7 @@ title: 实习笔记③
 published: 2026-07-17
 description: 这篇文章记录实习的工作内容，主要是留言板处理模块的开发。
 tags: [实习,vue]
-category: 实习
+category: 前端开发
 image: https://img.asyore.cn/fengmian/EMT3.webp
 slug: week3
 ---

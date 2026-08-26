@@ -3,7 +3,7 @@ title: 实习笔记②
 published: 2026-07-12
 description: 这篇文章记录实习的工作内容，主要是修复科普资源上传模块的两个问题。
 tags: [实习,vue,bug修复]
-category: 实习
+category: 前端开发
 image: https://img.asyore.cn/fengmian/EMT45.webp
 slug: week2
 ---
