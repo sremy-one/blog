@@ -1,10 +1,10 @@
 ---
 title: Spring Boot 框架与项目分层实践：从目录结构到一次请求的完整链路
-published: 2026-08-26
+published: 2026-06-01
 description: 结合无人机配送项目介绍 Spring Boot、Maven 多模块目录、Controller-Service-Mapper 分层、IoC、自动配置、请求链路、事务、权限、异常、缓存与定时任务。
 tags: [实习, 后端开发, Spring Boot, Java, 项目架构]
 category: 后端开发
-image: https://img.asyore.cn/fengmian/EMT41.webp
+image: https://img.asyore.cn/fengmian/EMT58.webp
 slug: spring-boot-project-layered-architecture
 ---
 
@@ -454,28 +454,257 @@ Spring Boot 能自动创建很多基础设施，但不会自动保证业务正�
 
 按钮隐藏不能阻止直接请求。状态前置条件、资源归属和字段白名单都必须由后端再次检查。
 
-## 21. 还可以继续分享哪些 Spring Boot 内容
+## 21. 完整示例：地址簿搜索接口
 
-围绕当前项目，还可以继续扩展成以下专题：
+前面分别介绍了各层，下面用真实的地址簿搜索把它们连起来。接口需求是：当前登录用户输入关键字，按船名、收货人或手机号搜索自己的有效地址。
 
-1. **Spring Bean 生命周期**：实例化、依赖注入、`@PostConstruct`、销毁回调和循环依赖。
-2. **自动配置原理**：Starter、条件注解、配置类加载以及如何编写自己的 Starter。
-3. **Spring AOP 与代理**：JDK 代理、CGLIB、自调用失效和注解切面实现。
-4. **事务进阶**：传播行为、隔离级别、锁、并发更新和分布式事务边界。
-5. **Spring Security 请求链**：JWT 解析、认证上下文、方法权限和对象级权限。
-6. **参数校验与接口契约**：`@Valid`、自定义校验、DTO 分组和统一错误结构。
-7. **MyBatis 深入实践**：动态 SQL、结果映射、批量操作、分页原理和 SQL 性能分析。
-8. **配置与环境隔离**：Profile、环境变量、配置中心和敏感信息管理。
-9. **缓存设计**：穿透、击穿、雪崩、缓存更新和分布式锁。
-10. **异步与线程池**：`@Async`、任务队列、上下文传递和优雅停机。
-11. **可观测性**：结构化日志、Trace ID、Actuator、指标与慢请求定位。
-12. **测试体系**：Service 单元测试、Controller 切片测试、数据库集成测试与 Testcontainers。
-13. **接口文档**：Springdoc 分组、DTO Schema、错误码与前后端契约维护。
-14. **部署与运行**：可执行 Jar、Docker、JVM 参数、健康检查和滚动发布。
+请求形式：
 
-这些主题可以从“框架怎么用”继续深入到“框架为什么这样工作”，也能结合项目中的真实问题，而不是只罗列注解。
+```http
+GET /manage/user/user-address/search?keyword=海运
+Authorization: Bearer <token>
+```
 
-## 22. 本篇小结
+期望响应只包含当前用户地址，默认地址排在最前，空关键字不执行模糊查询。
+
+### Controller 接收 HTTP 参数
+
+```java
+@RestController
+@RequestMapping("/manage/user/user-address")
+public class UserHyUserAddressController
+        extends BaseController {
+
+    @Autowired
+    private IHyUserAddressService userAddressService;
+
+    @GetMapping("/search")
+    public AjaxResult search(
+            @RequestParam(required = false) String keyword) {
+        return success(
+                userAddressService
+                        .selectUserAddressSearchList(keyword));
+    }
+}
+```
+
+`@RestController` 表示返回值直接写入响应体，并由 Jackson 转为 JSON。类上的 `@RequestMapping` 定义公共前缀，方法上的 `@GetMapping` 补充具体路径。
+
+`@RequestParam(required = false)` 允许参数缺失，因此 Java 变量可能是 null。Controller 没有自己处理 null，也没有接收用户 ID，而是把业务判断交给 Service。
+
+`success(data)` 来自 `BaseController`，最终生成统一的 `AjaxResult`。如果 Service 抛出 `ServiceException`，当前方法不会继续执行，异常会被全局处理器接管。
+
+### Service 处理空值和用户边界
+
+接口定义：
+
+```java
+public interface IHyUserAddressService {
+    List<HyUserAddress> selectUserAddressSearchList(
+            String keyword);
+}
+```
+
+实现：
+
+```java
+@Service
+@Transactional(readOnly = true)
+public class HyUserAddressServiceImpl
+        implements IHyUserAddressService {
+
+    @Autowired
+    private HyUserAddressMapper userAddressMapper;
+
+    @Override
+    public List<HyUserAddress> selectUserAddressSearchList(
+            String keyword) {
+        String searchKeyword =
+                StringUtils.trimToEmpty(keyword);
+        if (searchKeyword.isEmpty()) {
+            return Collections.emptyList();
+        }
+        return userAddressMapper.selectUserAddressSearchList(
+                SecurityUtils.getUserId(), searchKeyword);
+    }
+}
+```
+
+`trimToEmpty` 同时处理 null、空字符串和只有空格的输入。空关键字直接返回空列表，避免 SQL 变成 `like '%%'` 后读取当前用户全部地址。
+
+用户 ID 从 `SecurityUtils` 获取。JWT 过滤器已经在 Controller 之前恢复登录上下文，因此调用方不能通过查询参数搜索其他用户地址。
+
+类级 `@Transactional(readOnly = true)` 表达这个 Service 默认执行读取操作。新增、修改和删除方法再使用方法级写事务覆盖它。只读事务既是意图说明，也可能帮助数据库或 ORM 做只读优化，但它不是权限控制手段。
+
+### Mapper 接口声明两个具名参数
+
+```java
+public interface HyUserAddressMapper {
+    List<HyUserAddress> selectUserAddressSearchList(
+            @Param("wxUserId") Long wxUserId,
+            @Param("keyword") String keyword);
+}
+```
+
+方法有两个简单参数，因此使用 `@Param` 明确它们在 XML 中的名称。XML 可以稳定引用 `#{wxUserId}` 和 `#{keyword}`，不依赖编译器是否保留 Java 参数名。
+
+Spring 启动时，`@MapperScan` 找到这个接口，MyBatis 为它创建代理。Service 中注入的 `userAddressMapper` 实际是代理对象，而不是开发者手写的实现类。
+
+### Mapper XML 执行查询
+
+```xml
+<select id="selectUserAddressSearchList"
+        resultMap="HyUserAddressResult">
+    <include refid="selectHyUserAddressVo" />
+    where wx_user_id = #{wxUserId}
+      and status = '0'
+      and del_flag = '0'
+      and (
+          vessel_name like concat('%', #{keyword}, '%')
+          or receiver_name like concat('%', #{keyword}, '%')
+          or receiver_phone like concat('%', #{keyword}, '%')
+      )
+    order by is_default desc,
+             update_time desc,
+             create_time desc,
+             address_id desc
+</select>
+```
+
+`id` 必须与 Mapper 方法名一致，`resultMap` 决定数据库下划线字段怎样映射为 Java 属性。`<include>` 复用公共 select 字段，避免列表和详情重复维护列名。
+
+`#{keyword}` 使用预编译参数，不会把输入直接拼进 SQL。外层括号保证三个模糊条件整体受用户 ID、状态和删除标记限制；如果漏掉括号，SQL 的 AND/OR 优先级可能让其他用户满足手机号条件的记录被错误返回。
+
+排序先按默认地址降序，再按更新时间、创建时间和主键降序。最后加入主键可以在时间相同的情况下保持稳定顺序。
+
+### 响应怎样回到前端
+
+Mapper 通过 `resultMap` 生成 `List<HyUserAddress>`，Service 原样返回列表，Controller 包装成：
+
+```json
+{
+  "code": 200,
+  "msg": "操作成功",
+  "data": [
+    {
+      "addressId": 18,
+      "vesselName": "海运号",
+      "receiverName": "张三",
+      "isDefault": "1"
+    }
+  ]
+}
+```
+
+Jackson 根据 Java Bean 的 getter 生成 JSON。日期格式、时区和 null 字段策略可以通过 Spring Jackson 配置统一，而不需要每个 Controller 手工序列化。
+
+这条完整链路可以概括为：
+
+```text
+keyword 查询参数
+  -> Spring MVC 参数绑定
+  -> Controller 调用 Service
+  -> Service 清理关键字并取得当前用户
+  -> MyBatis 代理匹配 XML
+  -> 预编译 SQL 查询 MySQL
+  -> resultMap 构造对象列表
+  -> AjaxResult 包装
+  -> Jackson 输出 JSON
+```
+
+## 22. 如果接口报错，应从哪一层排查
+
+### 返回 401
+
+请求还没有进入 Controller。检查 Authorization 请求头、Token 是否过期、JWT 过滤器是否识别当前路径，以及登录接口写入 Redis 的用户缓存是否存在。
+
+### 返回 404
+
+检查类级和方法级路径拼接、应用 context path，以及 Controller 是否位于启动类扫描包下。Controller 没被注册时，方法里的断点永远不会命中。
+
+### keyword 始终为空
+
+检查前端是否使用查询参数、参数名是否确实是 `keyword`。若前端发送 JSON 请求体，就需要 `@RequestBody` DTO，而不是 `@RequestParam`。
+
+### Mapper 提示找不到 statement
+
+检查四处是否一致：
+
+```text
+Mapper 接口全限定名
+  = XML namespace
+Mapper 方法名
+  = select/update/insert/delete 的 id
+XML 是否位于 mybatis.mapperLocations 扫描路径
+Mapper 接口是否在 @MapperScan 范围
+```
+
+### SQL 能运行但返回了其他用户地址
+
+重点检查用户 ID 是否来自安全上下文，以及 OR 条件是否放在括号内。权限问题通常不是 Spring 注解失效，而是数据查询条件没有真正限制拥有者。
+
+## 23. 参数校验还可以怎样完善
+
+当前搜索参数简单，手工 trim 足够。创建订单等复杂请求更适合 Jakarta Validation：
+
+```java
+public class UserDeliveryOrderCreateDto {
+    @NotBlank(message = "服务类型不能为空")
+    private String serviceType;
+
+    @NotBlank(message = "收货人不能为空")
+    @Size(max = 50, message = "收货人不能超过50个字符")
+    private String receiverName;
+
+    @Pattern(
+        regexp = "^1\\d{10}$",
+        message = "手机号格式不正确")
+    private String receiverPhone;
+}
+```
+
+Controller 使用：
+
+```java
+public AjaxResult create(
+        @Valid @RequestBody UserDeliveryOrderCreateDto dto) {
+    return success(orderService.createUserDeliveryOrder(dto));
+}
+```
+
+Spring MVC 在进入方法前执行字段校验，失败时抛出 `MethodArgumentNotValidException`，项目全局异常处理器已经能提取字段错误并返回统一结果。
+
+注解校验适合长度、格式和必填等结构规则；“快递订单必须有快递单号”“订单只能由当前用户修改”仍属于跨字段或数据库业务规则，应留在 Service。
+
+## 24. 怎样为这条链路写测试
+
+Controller 测试关注 HTTP 契约，可以模拟 Service：
+
+```java
+mockMvc.perform(get(
+        "/manage/user/user-address/search")
+        .param("keyword", "海运")
+        .header("Authorization", token))
+    .andExpect(status().isOk())
+    .andExpect(jsonPath("$.code").value(200))
+    .andExpect(jsonPath("$.data[0].vesselName")
+            .value("海运号"));
+```
+
+Service 单元测试关注空关键字和当前用户 ID：
+
+```text
+keyword = null      -> 返回空列表，不调用 Mapper
+keyword = "   "     -> 返回空列表，不调用 Mapper
+keyword = " 海运 "   -> Mapper 收到去空格后的“海运”
+登录用户 ID = 12     -> Mapper 第一个参数必须是 12
+```
+
+Mapper 集成测试则使用测试数据库验证 SQL 括号、逻辑删除和排序：准备两个用户的相似地址，确保查询结果只属于当前用户，并且默认地址排在第一位。
+
+把测试也按层拆分，失败时更容易判断是 HTTP 映射、业务规则还是 SQL 出现问题。
+
+## 25. 本篇小结
 
 Spring Boot 项目的核心不是记住多少注解，而是理解对象由谁创建、请求经过哪些组件、每一层负责什么，以及通用机制与业务规则在哪里交汇。
 
