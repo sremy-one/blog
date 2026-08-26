@@ -4,7 +4,7 @@ published: 2026-06-13
 description: 从 Mapper 代理与 XML 映射出发，系统讲解动态条件、批量参数、PageHelper 分页、稳定排序、N+1 查询、索引与执行计划分析。
 tags: [实习, 后端开发, MyBatis, SQL优化, 分页]
 category: 后端开发
-image: https://img.asyore.cn/fengmian/EMT62.webp
+image: https://img.asyore.cn/images/EMT62.webp
 slug: mybatis-dynamic-sql-pagination-performance
 ---
 

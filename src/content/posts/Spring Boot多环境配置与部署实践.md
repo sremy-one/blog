@@ -4,7 +4,7 @@ published: 2026-06-16
 description: 介绍配置分层、Profile、ConfigurationProperties、敏感信息管理、日志与健康检查，并梳理 Jar、容器、优雅停机和滚动发布流程。
 tags: [实习, 后端开发, Spring Boot, 多环境配置, 部署]
 category: 后端开发
-image: https://img.asyore.cn/fengmian/EMT63.webp
+image: https://img.asyore.cn/images/EMT63.webp
 slug: spring-boot-profile-configuration-deployment
 ---
 

@@ -4,7 +4,7 @@ published: 2026-06-19
 description: 结合系统配置与登录会话缓存，讲解 Cache Aside、键设计、一致性、穿透击穿雪崩、序列化，以及带令牌和 Lua 释放的分布式锁。
 tags: [实习, 后端开发, Redis, 缓存一致性, 分布式锁]
 category: 后端开发
-image: https://img.asyore.cn/fengmian/EMT64.webp
+image: https://img.asyore.cn/images/EMT64.webp
 slug: redis-cache-distributed-lock
 ---
 

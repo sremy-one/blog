@@ -4,7 +4,7 @@ published: 2026-06-22
 description: 介绍 @Async 代理机制、线程池参数、拒绝策略、上下文传播、异常处理、事务边界、定时任务拆分与服务停机时的任务收尾。
 tags: [实习, 后端开发, Spring异步, 线程池, 优雅停机]
 category: 后端开发
-image: https://img.asyore.cn/fengmian/EMT65.webp
+image: https://img.asyore.cn/images/EMT65.webp
 slug: spring-async-thread-pool-graceful-shutdown
 ---
 
