@@ -4,7 +4,7 @@ published: 2026-06-25
 description: 从日志、指标和追踪出发，介绍 Actuator、MDC 请求标识、慢请求观测，并用 Mockito、MockMvc、容器化集成测试和 springdoc 建立质量反馈链路。
 tags: [实习, 后端开发, Spring Boot, 可观测性, 自动化测试, OpenAPI]
 category: 后端开发
-image: https://img.asyore.cn/images/EMT66.webp
+image: https://img.asyore.cn/images/EMT14.webp
 slug: spring-boot-observability-testing-openapi
 ---
 

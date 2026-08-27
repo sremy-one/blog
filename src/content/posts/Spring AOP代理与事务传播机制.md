@@ -4,7 +4,7 @@ published: 2026-06-07
 description: 结合操作日志、数据权限与订单事务，介绍 JDK/CGLIB 代理、切点与通知、自调用失效、事务传播、隔离级别和外部系统一致性边界。
 tags: [实习, 后端开发, Spring AOP, Spring 事务, 代理模式]
 category: 后端开发
-image: https://img.asyore.cn/images/EMT60.webp
+image: https://img.asyore.cn/images/EMT8.webp
 slug: spring-aop-proxy-transaction-propagation
 ---
 

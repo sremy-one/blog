@@ -4,7 +4,7 @@ published: 2026-06-10
 description: 结合无状态 JWT 登录链路，说明过滤器顺序、SecurityContext、接口与方法授权、对象级资源归属、Bean Validation 和统一异常返回。
 tags: [实习, 后端开发, Spring Security, JWT, 参数校验]
 category: 后端开发
-image: https://img.asyore.cn/images/EMT61.webp
+image: https://img.asyore.cn/images/EMT9.webp
 slug: spring-security-request-validation
 ---
 

@@ -4,7 +4,7 @@ published: 2026-06-04
 description: 从组件扫描、BeanDefinition、实例化、依赖注入和初始化回调讲到 Spring Boot 条件自动配置，并结合项目中的配置缓存与数据源配置说明扩展方式。
 tags: [实习, 后端开发, Spring Boot, Bean 生命周期, 自动配置]
 category: 后端开发
-image: https://img.asyore.cn/images/EMT59.webp
+image: https://img.asyore.cn/images/EMT7.webp
 slug: spring-bean-lifecycle-auto-configuration
 ---
 

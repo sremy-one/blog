@@ -4,7 +4,7 @@ published: 2026-06-01
 description: 结合无人机配送项目介绍 Spring Boot、Maven 多模块目录、Controller-Service-Mapper 分层、IoC、自动配置、请求链路、事务、权限、异常、缓存与定时任务。
 tags: [实习, 后端开发, Spring Boot, Java, 项目架构]
 category: 后端开发
-image: https://img.asyore.cn/images/EMT58.webp
+image: https://img.asyore.cn/images/EMT6.webp
 slug: spring-boot-project-layered-architecture
 ---
 
